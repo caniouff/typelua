@@ -24,7 +24,7 @@ StructB = struct {
 }
 
 local B = StructB()
-B.name = "B --direct access combine member like golang
+B.name = "B" --direct access combine member like golang
 B.id = 2
 B.phone = "086-12138"
 
