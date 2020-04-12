@@ -48,10 +48,11 @@ end
 
 --call module or global func
 ModuleFunc()
-```
+
 --interface
 Handle = interface{
     handleName = "number" -- no need to writter setter and getter
 }
 --declare interface func
 func(Handle)("string")("bool").HandleMsg = function(msg_str) return false end
+```
