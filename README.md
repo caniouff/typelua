@@ -32,7 +32,8 @@ B.phone = "086-12138"
 --define member function
 --func(receiver)(...parameters)(...returns).FunctionName = function(param1, param2)
 func(StructA)("number", "string")("string").Name = function(key, value)
-    return self.name
+    local baseName = self.StructA:Name(key, value) --call inner struct func
+    return self.name .. "->" .. baseName
 end
 
 
@@ -48,3 +49,9 @@ end
 --call module or global func
 ModuleFunc()
 ```
+--interface
+Handle = interface{
+    handleName = "number" -- no need to writter setter and getter
+}
+--declare interface func
+func(Handle)("string")("bool").HandleMsg = function(msg_str) return false end
