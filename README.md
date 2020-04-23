@@ -12,6 +12,8 @@ module("PackageA")
 StructA = struct {
     name = "string", --string member
     id = "number", --number member
+    mapData = map("string", "string"),
+    listData = list("list"),
 }
 
 local A = StructA()
