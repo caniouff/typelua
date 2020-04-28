@@ -57,4 +57,9 @@ Handle = interface{
 }
 --declare interface func
 func(Handle)("string")("bool").HandleMsg = function(msg_str) return false end
+
+--nullable support
+local something = StructB()
+somethin = nil
+nullable(something).StructA.name = "error"
 ```
