@@ -5,10 +5,29 @@ local Test = import("typeTest")---
 --- DateTime: 2020/5/9 1:59
 ---
 module("TestStructField")
+
+local CallBack = func("string")("string") <= function (name) return name end
 TestStruct = struct {
     account = "string",
     password = "string",
     loginTime = "number",
+    default = "string",
+    common = "string",
+    callback = CallBack,
+    --default = "string",
 }
 
+func(TestStruct)()("string").GetDefaultName = function(self)
+--TODO:Implement me
+end
+
+func(TestStruct)(CallBack).SetCallback = function(self, cb)
+    self.callback = cb
+end
+
 TestStruct.account = 2
+TestStruct:GetDefaultName()
+
+TestStruct:SetCallback(function (name)
+    print(name)
+end)
