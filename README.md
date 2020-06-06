@@ -8,12 +8,15 @@ lua with type,
 # demo
 ```Lua
 module("PackageA")
+--define a function type
+local callback = func("string")("string") <= function(name) end
 --define a struct like golang
 StructA = struct {
     name = "string", --string member
     id = "number", --number member
     mapData = map("string", "string"),
     listData = list("list"),
+    cb = callback,
 }
 
 local A = StructA()
@@ -62,4 +65,5 @@ func(Handle)("string")("bool").HandleMsg = function(msg_str) return false end
 local something = StructB()
 somethin = nil
 nullable(something).StructA.name = "error"
+
 ```
