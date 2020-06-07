@@ -1,5 +1,5 @@
 # typelua
-lua with type,
+lua with type
 
 # features
 1.support by idea plugin(developping)
@@ -66,4 +66,8 @@ local something = StructB()
 somethin = nil
 nullable(something).StructA.name = "error"
 
+--new func define grammar
+func(receiver).FuncName(paramlist...)(rets...) <= function(self, varlist)
+    return ...
+end
 ```
