@@ -12,7 +12,7 @@ lua with type
 1.global define build-in type
 String = "string"
 Number = "number"
-Userdata = "userdata"
+UserData = "userdata"
 Boolean = "boolean"
 2.new function declare
 local callback = fn(String.name)(String)
