@@ -7,9 +7,23 @@ lua with type
 2.type feature looks like golang and simple
 # demo
 ```Lua
+--TODO:
+--[[
+1.global define build-in type
+String = "string"
+Number = "number"
+Userdata = "userdata"
+Boolean = "boolean"
+2.new function declare
+local callback = fn(String.name)(String)
+IInterface = interface {
+Open = fn(String.Ip, Number.Port),
+}
+--]]
 module("PackageA")
 --define a function type
 local callback = func("string")("string") <= function(name) end
+
 --define a struct like golang
 StructA = struct {
     name = "string", --string member
