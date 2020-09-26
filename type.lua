@@ -90,23 +90,30 @@ iota = createIota()
 function _G.enum(t)
     local enumValue = {}
     local lastValue = 0
+    local curIndex = 0
     local lastKey = nil
+    local lastFunc = nil
     for index, value in ipairs(t) do
         local valueType = type(value)
         if valueType == "string" then
+            curIndex = curIndex + 1
             lastValue = lastValue + 1
-            enumValue[value] = lastValue
+            enumValue[value] = lastFunc and lastFunc(lastValue) or lastValue
             lastKey = value
         elseif valueType == "number" then
-            lastValue = value + 1
+            lastValue = value
+            lastFunc = nil
             enumValue[lastKey] = lastValue
         elseif valueType == "table" then
-            lastValue = value[1](lastValue) + 1
+            lastFunc = value[1]
+            value[1] = nil
+            lastValue = lastFunc(curIndex)
             enumValue[lastKey] =  lastValue
         else
             error("not support enum type " .. valueType)
         end
     end
+
 end
 
 
