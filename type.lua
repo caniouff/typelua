@@ -37,12 +37,92 @@ function _G.list(value)
     return __list_creator
 end
 
+
+local iotaKey = "iota"
+local __iotaMeta = {
+    __add = function(a, b)
+        local iotaTable = type(a) == "table" and a or b
+        local anotherValue = type(a) == "number" and a or b
+        local iotaFunc = iotaTable[1]
+        iotaTable[1] = function(iotaValue)
+            return anotherValue + iotaFunc and iotaFunc(iotaValue) or iotaValue
+        end
+        return iotaTable
+    end,
+
+    __sub = function(a, b)
+        local iotaTable = type(a) == "table" and a or b
+        local anotherValue = type(a) == "number" and a or b
+        local iotaFunc = iotaTable[1]
+        iotaTable[1] = function(iotaValue)
+            return anotherValue - iotaFunc and iotaFunc(iotaValue) or iotaValue
+        end
+        return iotaTable
+    end,
+
+    __mul = function(a, b)
+        local iotaTable = type(a) == "table" and a or b
+        local anotherValue = type(a) == "number" and a or b
+        local iotaFunc = iotaTable[1]
+        iotaTable[1] = function(iotaValue)
+            return anotherValue * iotaFunc and iotaFunc(iotaValue) or iotaValue
+        end
+        return iotaTable
+    end,
+
+    __div = function(a, b)
+        local iotaTable = type(a) == "table" and a or b
+        local anotherValue = type(a) == "number" and a or b
+        local iotaFunc = iotaTable[1]
+        iotaTable[1] = function(iotaValue)
+            return anotherValue / iotaFunc and iotaFunc(iotaValue) or iotaValue
+        end
+        return iotaTable
+    end,
+}
+
+local function createIota()
+    return setmetatable({}, __iotaMeta)
+end
+
+iota = createIota()
+
+function _G.enum(t)
+    local enumValue = {}
+    local lastValue = 0
+    local lastKey = nil
+    for index, value in ipairs(t) do
+        local valueType = type(value)
+        if valueType == "string" then
+            lastValue = lastValue + 1
+            enumValue[value] = lastValue
+            lastKey = value
+        elseif valueType == "number" then
+            lastValue = value + 1
+            enumValue[lastKey] = lastValue
+        elseif valueType == "table" then
+            lastValue = value[1](lastValue) + 1
+            enumValue[lastKey] =  lastValue
+        else
+            error("not support enum type " .. valueType)
+        end
+    end
+end
+
+
 local buildinType =
 {
+    ["boolean"] = false,
     ["number"] = 0,
     ["string"] = "",
     ["table"] = {},
+    ["userdata"] = nil,
 }
+
+String = "string"
+Number = "number"
+Boolean = "boolean"
+UserData = "userdata"
 
 local metakey = {
     __name = "string",
@@ -156,11 +236,15 @@ function _G.func(receiver)
     return receiver.__func_def
 end
 
+function _G.fn(...)
+    return _G.fn
+end
+
 local raw_require = _G.require
 local module_env_queue = {}
 local module_queue = {}
 
-function _G.module(name)
+function _G.package(name)
     local module = {}
     local moduleG = {
         __newindex = function(_, k, v)
@@ -173,6 +257,8 @@ function _G.module(name)
         __index = function(_, k)
             if k == metakey.__module then
                 return module
+            elseif k == iotaKey then
+                return createIota()
             end
             return rawget(module, k)
         end,
@@ -315,11 +401,11 @@ local nullvalue = setmetatable({}, {
         end
     end
 })
-_G.nullable = function(value)
+function _G.nullable(value)
     rawset(nullvalue, "value", value)
     return nullvalue
 end
 
-_G.isnull = function(value)
+function _G.isnull(value)
     return value == nil or value == nullvalue
 end

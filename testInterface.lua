@@ -4,14 +4,14 @@
 --- DateTime: 2020/5/17 2:06
 ---
 
-module("Interface")
+package("Interface")
 
-NameProvider = interface{
-    default = "string",
-    common = "string",
+NameProvider = interface {
+    GetDefaultName = fn()(String),
+    GetDefaultName2 = fn()(String, String),
 }
 
-func(NameProvider)()("string").GetDefaultName = function(self)
-    return self.default
-end
+--func(NameProvider)()("string").GetDefaultName = function(self)
+--    return self.default
+--end
 

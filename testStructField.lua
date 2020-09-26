@@ -4,30 +4,55 @@ local Test = import("typeTest")---
 --- Created by mercu.
 --- DateTime: 2020/5/9 1:59
 ---
-module("TestStructField")
+package("TestStructField")
 
-local CallBack = func("string")("string") <= function (name) return name end
+local CallBack = func("string")("string") <= function (name) return "" end
+local CallBack2 = fn(String.name)(String)
+
 TestStruct = struct {
     account = "string",
     password = "string",
     loginTime = "number",
     default = "string",
     common = "string",
+    common2 = String,
     callback = CallBack,
+    callback2 = CallBack2,
     --default = "string",
 }
 
 func(TestStruct)()("string").GetDefaultName = function(self)
 --TODO:Implement me
+    return ""
+end
+func(TestStruct)()("string", "string").GetDefaultName2 = function(self)
+    --TODO:Implement me
+    return "", ""
 end
 
+
 func(TestStruct)(CallBack).SetCallback = function(self, cb)
-    self.callback = cb
+    self.callback = function(name)
+        print(name)
+        return name
+    end
+    self.callback = nil
+    self.callback2 = nil
+    self.callback2 = function(name)
+        print(name)
+        return name
+    end
 end
 
 TestStruct.account = 2
 TestStruct:GetDefaultName()
+TestStruct.account = (TestStruct:GetDefaultName2())
+TestStruct.account = TestStruct:GetDefaultName2()
+TestStruct.account, password = TestStruct:GetDefaultName2()
+TestStruct.account, password = (TestStruct:GetDefaultName2())
 
 TestStruct:SetCallback(function (name)
     print(name)
+
 end)
+

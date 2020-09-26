@@ -1,6 +1,6 @@
 local Test2 = import("typeTest")
 local Test = import("typeTest")
-module("TestImport")
+package("TestImport")
 
 PanelLogin = struct {
     account = "string",
@@ -19,5 +19,6 @@ end
 Instance:Login("1", "2")
 
 Instance.password = 2
-
+local b = (Test.StructB)()
+b.dataMap["1"] = 1
 

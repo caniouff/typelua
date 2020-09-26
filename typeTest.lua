@@ -5,7 +5,7 @@
 -- Time: 23:01
 -- To change this template use File | Settings | File Templates.
 --
-module("Test")
+package("Test")
 StructA = struct {
     name = "string",
     number = "number",
@@ -26,7 +26,7 @@ func(StructA)("number", "string")("string").Name = function(self, key, value)
 end
 func(StructB)("number", "string")("string").Name = function(self, key, value)
     print("StructB:Name")
-    return StructA(self):Name()
+    return StructA(self):Name(1,"")
 end
 
 func(StructA)("string")("number").NameLength = function(self, suffix)
