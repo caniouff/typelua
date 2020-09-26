@@ -88,4 +88,38 @@ local a = Group()
 a = nil
 print(nullable(a).name) -- output empty string (default value of type)
 ```
+# map
+```Lua
+local playerLevelMap = map(String, Number)
+```
 
+# list
+```Lua
+local playerNameList = list(String)
+```
+
+# package and import
+## package
+globals will be see as package fields
+```Lua
+package("GameMode")
+GameMode = struct {
+    serverName = String,
+    mapName = String,
+    playerCount = Number
+}
+--package var
+Instance = GameMode()
+
+--static
+func(_)()(GameMode).GetPlayerCount = function()
+    return Instance.playerCount
+end
+```
+
+## import
+```Lua
+local GameMode = import("GameMode")
+local playerCount = GameMode.GetPlayerCount()
+local serverName = GameMode.Instance.serverName
+```
