@@ -1,5 +1,5 @@
 # typelua
-lua with type,
+lua with type
 
 # features
 1.support by idea plugin(developping)
@@ -7,13 +7,30 @@ lua with type,
 2.type feature looks like golang and simple
 # demo
 ```Lua
+--TODO:
+--[[
+1.global define build-in type
+String = "string"
+Number = "number"
+UserData = "userdata"
+Boolean = "boolean"
+2.new function declare
+local callback = fn(String.name)(String)
+IInterface = interface {
+Open = fn(String.Ip, Number.Port),
+}
+--]]
 module("PackageA")
+--define a function type
+local callback = func("string")("string") <= function(name) end
+
 --define a struct like golang
 StructA = struct {
     name = "string", --string member
     id = "number", --number member
     mapData = map("string", "string"),
     listData = list("list"),
+    cb = callback,
 }
 
 local A = StructA()
@@ -62,4 +79,9 @@ func(Handle)("string")("bool").HandleMsg = function(msg_str) return false end
 local something = StructB()
 somethin = nil
 nullable(something).StructA.name = "error"
+
+--new func define grammar
+func(receiver).FuncName(paramlist...)(rets...) <= function(self, varlist)
+    return ...
+end
 ```
