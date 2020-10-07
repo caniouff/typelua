@@ -1,6 +1,6 @@
 local Test2 = import("typeTest")
 local Test = import("typeTest")
-package("TestImport")
+export("TestImport")
 
 PanelLogin = struct {
     account = "string",

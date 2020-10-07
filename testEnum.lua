@@ -4,7 +4,7 @@
 --- DateTime: 2020/6/6 22:45
 ---
 
-module("Enum")
+export("Enum")
 TestEnum = enum {
     "First", iota + 1,
     "Second",

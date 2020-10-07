@@ -251,7 +251,7 @@ local raw_require = _G.require
 local module_env_queue = {}
 local module_queue = {}
 
-function _G.package(name)
+function _G.export(name)
     local module = {}
     local moduleG = {
         __newindex = function(_, k, v)

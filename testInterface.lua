@@ -4,7 +4,7 @@
 --- DateTime: 2020/5/17 2:06
 ---
 
-package("Interface")
+export("Interface")
 
 NameProvider = interface {
     GetDefaultName = fn()(String),

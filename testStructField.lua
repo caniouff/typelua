@@ -4,7 +4,7 @@ local Test = import("typeTest")---
 --- Created by mercu.
 --- DateTime: 2020/5/9 1:59
 ---
-package("TestStructField")
+export("TestStructField")
 
 local CallBack = func("string")("string") <= function (name) return "" end
 local CallBack2 = fn(String.name)(String)
